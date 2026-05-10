@@ -36,20 +36,22 @@ function Ticker() {
       rafRef.current = requestAnimationFrame(tick);
     };
     rafRef.current = requestAnimationFrame(tick);
-    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
   const doubled = [...TICKER_ITEMS, ...TICKER_ITEMS];
 
   return (
-    <div className="w-full overflow-hidden border-t border-b border-[#d4a017]/20 bg-[#0f0f0a] py-2 mt-8">
+    <div className="w-full overflow-hidden border-y-[3px] border-[var(--foreground)] bg-[var(--gold)] py-2.5 mt-8 neo-shadow-sm">
       <div
-        className="flex gap-12 whitespace-nowrap font-mono text-xs text-[#a09880]"
+        className="flex gap-12 whitespace-nowrap font-mono text-xs font-bold text-[var(--foreground)] motion-reduce:transform-none"
         style={{ transform: `translateX(-${offset}%)`, willChange: "transform" }}
       >
         {doubled.map((item, i) => (
           <span key={i} className="flex items-center gap-2 shrink-0">
-            <span className="text-[#27ae60]">●</span>
+            <span className="text-[var(--green-evidence)]">●</span>
             {item}
           </span>
         ))}
@@ -59,119 +61,127 @@ function Ticker() {
 }
 
 export default function Hero() {
-  const [typed, setTyped] = useState("");
-  const fullText = "Need backend that survives chaos?";
-
-  useEffect(() => {
-    let i = 0;
-    const interval = setInterval(() => {
-      if (i <= fullText.length) {
-        setTyped(fullText.slice(0, i));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 50);
-    return () => clearInterval(interval);
-  }, [fullText]);
-
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20">
       {/* Background grid */}
       <div
-        className="absolute inset-0 opacity-10"
+        className="absolute inset-0 opacity-[0.12]"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(212,160,23,0.15) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(212,160,23,0.15) 1px, transparent 1px)
+            linear-gradient(var(--foreground) 1px, transparent 1px),
+            linear-gradient(90deg, var(--foreground) 1px, transparent 1px)
           `,
-          backgroundSize: "60px 60px",
+          backgroundSize: "48px 48px",
         }}
       />
 
-      {/* Vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#0a0a08_100%)]" />
+      <div className="absolute top-20 right-0 w-64 h-64 bg-[var(--neo-cyan)]/25 border-[3px] border-[var(--foreground)] -rotate-6 pointer-events-none hidden md:block neo-shadow-sm" />
+      <div className="absolute bottom-32 left-8 w-48 h-48 bg-[var(--neo-pink)]/20 border-[3px] border-[var(--foreground)] rotate-12 pointer-events-none hidden lg:block neo-shadow-sm" />
 
-      {/* Scanline */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-5"
-        style={{
-          backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.4) 2px, rgba(0,0,0,0.4) 4px)",
-        }}
-      />
+      <noscript>
+        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-4 pb-2">
+          <div className="max-w-3xl border-[3px] border-black bg-white p-4 font-mono text-sm text-black space-y-2 print:border-black">
+            <p className="text-3xl font-black leading-tight">Better Call Vivek</p>
+            <p className="font-bold">
+              Lead Backend Engineer · Node.js · TypeScript · Express · Redis · MongoDB · Azure
+            </p>
+            <p>
+              Production REST APIs · BullMQ workers · Socket.IO · cloud deploys · incident response.
+            </p>
+            <p className="font-bold">Need backend that survives chaos?</p>
+            <p>
+              <a href="mailto:viveksingh0520@gmail.com" className="underline font-bold">
+                viveksingh0520@gmail.com
+              </a>
+            </p>
+          </div>
+        </div>
+      </noscript>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
         <div className="max-w-4xl">
-          {/* Status badge */}
+          {/* At a glance — always in DOM; readable in print & without waiting on motion */}
+          <div className="mb-8 max-w-3xl border-[3px] border-[var(--foreground)] bg-white px-4 py-3 neo-shadow-sm text-left print:shadow-none print:border-black">
+            <p className="font-mono text-[10px] uppercase tracking-widest text-[#5c5c5c] font-black mb-2">
+              At a glance
+            </p>
+            <p className="font-mono text-sm text-[var(--foreground)] font-bold leading-relaxed">
+              <span className="block sm:inline sm:after:content-['·'] sm:after:mx-2 sm:after:text-[#5c5c5c] sm:after:font-normal">
+                Lead Backend Engineer
+              </span>
+              <span className="block sm:inline sm:after:content-['·'] sm:after:mx-2 sm:after:text-[#5c5c5c] sm:after:font-normal">
+                Node.js · TypeScript · Express · Redis · MongoDB · Azure · Nginx
+              </span>
+              <span className="block sm:inline">
+                REST APIs · job queues & workers · real-time (Socket.IO) · cloud & incident response
+              </span>
+            </p>
+          </div>
+
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 border border-[#27ae60]/40 bg-[#27ae60]/10 font-mono text-xs text-[#27ae60] tracking-widest uppercase"
+            transition={{ delay: 0.15 }}
+            className="inline-flex items-center gap-2 mb-6 px-3 py-2 border-[3px] border-[var(--foreground)] bg-[var(--smoke)] font-mono text-xs text-[var(--foreground)] tracking-widest uppercase font-black neo-shadow-sm"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#27ae60] animate-pulse" />
+            <span className="w-2 h-2 bg-[var(--green-evidence)] border border-[var(--foreground)]" />
             Available for New Cases
           </motion.div>
 
-          {/* Typewriter headline */}
           <div className="mb-4">
-            <h2 className="font-mono text-lg md:text-xl text-[#a09880] tracking-wide mb-2 h-7">
-              {typed}
-              <span className="border-r-2 border-[#d4a017] ml-0.5 animate-pulse" />
+            <h2 className="font-mono text-lg md:text-xl text-[#5c5c5c] tracking-wide mb-2 font-bold">
+              Need backend that survives chaos?
             </h2>
 
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.8, duration: 0.8, ease: "easeOut" }}
+              transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
               className="text-6xl md:text-8xl font-black leading-none tracking-tight"
             >
-              <span className="text-[#f0e6c8]">Better</span>
+              <span className="text-[var(--foreground)]">Better</span>
               <br />
               <span className="text-neon-gold">Call Vivek</span>
             </motion.h1>
           </div>
 
-          {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 2.4, duration: 0.6 }}
-            className="text-[#a09880] text-lg md:text-xl max-w-2xl leading-relaxed mb-8 font-mono"
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="text-[#5c5c5c] text-lg md:text-xl max-w-2xl leading-relaxed mb-8 font-mono font-medium"
           >
             Lead Backend Engineer. I build production systems that handle{" "}
-            <span className="text-[#d4a017]">real-time chaos</span>, survive{" "}
-            <span className="text-[#c0392b]">security incidents</span>, and scale
-            under <span className="text-[#d4a017]">pressure</span>.
+            <span className="text-[var(--neo-cyan)] font-bold">real-time chaos</span>, survive{" "}
+            <span className="text-[var(--red-evidence)] font-bold">security incidents</span>, and scale
+            under <span className="text-[var(--neo-pink)] font-bold">pressure</span>.
           </motion.p>
 
-          {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2.8, duration: 0.5 }}
+            transition={{ delay: 0.65, duration: 0.5 }}
             className="flex flex-wrap gap-4 mb-12"
           >
             <a
               href="#contact"
-              className="group flex items-center gap-2 px-6 py-3 bg-[#d4a017] text-[#0a0a08] font-mono font-bold text-sm tracking-widest uppercase hover:bg-[#f5c842] transition-all duration-300 animate-pulse-gold"
+              className="group flex items-center gap-2 px-6 py-3 bg-[var(--gold)] text-[var(--foreground)] font-mono font-black text-sm tracking-widest uppercase border-[3px] border-[var(--foreground)] neo-shadow hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all duration-200"
             >
               <Phone className="w-4 h-4" />
               Schedule Consultation
             </a>
             <a
               href="#case-files"
-              className="flex items-center gap-2 px-6 py-3 border border-[#d4a017]/50 text-[#d4a017] font-mono text-sm tracking-widest uppercase hover:border-[#d4a017] hover:bg-[#d4a017]/10 transition-all duration-300"
+              className="flex items-center gap-2 px-6 py-3 border-[3px] border-[var(--foreground)] bg-[var(--background)] text-[var(--foreground)] font-mono text-sm tracking-widest uppercase font-black neo-shadow-sm hover:bg-[var(--smoke)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all duration-200"
             >
               View Case Files
             </a>
           </motion.div>
 
-          {/* Stats row */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 3.2, duration: 0.6 }}
+            transition={{ delay: 0.85, duration: 0.6 }}
             className="grid grid-cols-2 md:grid-cols-4 gap-4"
           >
             {STATS.map((stat, i) => (
@@ -179,14 +189,14 @@ export default function Hero() {
                 key={stat.label}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 3.2 + i * 0.1 }}
-                className="border border-[#d4a017]/20 bg-[#0f0f0a] p-4 relative group hover:border-[#d4a017]/50 transition-colors duration-300"
+                transition={{ delay: 0.9 + i * 0.08 }}
+                className="border-[3px] border-[var(--foreground)] bg-white p-4 relative neo-shadow-sm hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all duration-200"
               >
-                <div className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-[#d4a017]/40 group-hover:bg-[#d4a017] transition-colors" />
-                <div className="text-2xl font-black text-[#d4a017] font-mono">
+                <div className="absolute top-2 right-2 w-2 h-2 bg-[var(--gold)] border border-[var(--foreground)]" />
+                <div className="text-2xl font-black text-[var(--foreground)] font-mono">
                   {stat.value}
                 </div>
-                <div className="text-[10px] text-[#706858] font-mono tracking-wider uppercase mt-1">
+                <div className="text-[10px] text-[#5c5c5c] font-mono tracking-wider uppercase mt-1 font-bold">
                   {stat.label}
                 </div>
               </motion.div>
@@ -194,11 +204,10 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Floating icons */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 3.5 }}
+          transition={{ delay: 1.1 }}
           className="hidden lg:block absolute right-10 top-1/2 -translate-y-1/2"
         >
           <div className="relative w-64 h-64">
@@ -219,47 +228,44 @@ export default function Hero() {
                 className="absolute flex flex-col items-center gap-1"
                 style={{ left: x, top: y }}
               >
-                <div className="w-12 h-12 border border-[#d4a017]/40 bg-[#0f0f0a] flex items-center justify-center">
-                  <Icon className="w-5 h-5 text-[#d4a017]" />
+                <div className="w-12 h-12 border-[3px] border-[var(--foreground)] bg-[var(--neo-cyan)]/30 flex items-center justify-center neo-shadow-sm">
+                  <Icon className="w-5 h-5 text-[var(--foreground)]" />
                 </div>
-                <span className="font-mono text-[9px] text-[#706858] tracking-wider uppercase">
+                <span className="font-mono text-[9px] text-[#5c5c5c] tracking-wider uppercase font-bold">
                   {label}
                 </span>
               </motion.div>
             ))}
 
-            {/* SVG connecting lines */}
             <svg className="absolute inset-0 w-full h-full" style={{ overflow: "visible" }}>
-              <line x1="56" y1="56" x2="136" y2="0" stroke="#d4a017" strokeWidth="0.5" strokeOpacity="0.3" strokeDasharray="4 4" />
-              <line x1="56" y1="56" x2="46" y2="156" stroke="#d4a017" strokeWidth="0.5" strokeOpacity="0.3" strokeDasharray="4 4" />
-              <line x1="136" y1="0" x2="46" y2="156" stroke="#d4a017" strokeWidth="0.5" strokeOpacity="0.3" strokeDasharray="4 4" />
+              <line x1="56" y1="56" x2="136" y2="0" stroke="var(--foreground)" strokeWidth="2" strokeOpacity="0.35" strokeDasharray="6 6" />
+              <line x1="56" y1="56" x2="46" y2="156" stroke="var(--foreground)" strokeWidth="2" strokeOpacity="0.35" strokeDasharray="6 6" />
+              <line x1="136" y1="0" x2="46" y2="156" stroke="var(--foreground)" strokeWidth="2" strokeOpacity="0.35" strokeDasharray="6 6" />
             </svg>
           </div>
         </motion.div>
       </div>
 
-      {/* Live event ticker */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 3.8 }}
+        transition={{ delay: 1.2 }}
         className="relative z-10"
       >
         <Ticker />
       </motion.div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 4 }}
+        transition={{ delay: 1.25 }}
         className="relative z-10 flex justify-center py-6"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
         >
-          <ArrowDown className="w-4 h-4 text-[#d4a017]/50" />
+          <ArrowDown className="w-4 h-4 text-[var(--foreground)]" />
         </motion.div>
       </motion.div>
     </section>

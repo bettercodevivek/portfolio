@@ -21,14 +21,14 @@ interface Connection {
 }
 
 const NODES: Node[] = [
-  { id: "vivek", label: "VIVEK", sublabel: "Lead Backend Dev", x: 50, y: 45, color: "#d4a017", size: 52 },
-  { id: "apis", label: "50+ APIs", sublabel: "REST endpoints", x: 20, y: 20, color: "#f0e6c8", size: 40 },
-  { id: "agents", label: "5 AI Agents", sublabel: "Python microservices", x: 78, y: 18, color: "#f0e6c8", size: 40 },
-  { id: "sockets", label: "Socket.IO", sublabel: "Real-time events", x: 82, y: 65, color: "#27ae60", size: 36 },
-  { id: "bullmq", label: "BullMQ", sublabel: "Async job queue", x: 15, y: 68, color: "#f0e6c8", size: 36 },
+  { id: "vivek", label: "VIVEK", sublabel: "Lead Backend Dev", x: 50, y: 45, color: "#ffd60a", size: 52 },
+  { id: "apis", label: "50+ APIs", sublabel: "REST endpoints", x: 20, y: 20, color: "#0f0f0f", size: 40 },
+  { id: "agents", label: "5 AI Agents", sublabel: "Python microservices", x: 78, y: 18, color: "#0f0f0f", size: 40 },
+  { id: "sockets", label: "Socket.IO", sublabel: "Real-time events", x: 82, y: 65, color: "#06d6a0", size: 36 },
+  { id: "bullmq", label: "BullMQ", sublabel: "Async job queue", x: 15, y: 68, color: "#0f0f0f", size: 36 },
   { id: "azure", label: "Azure", sublabel: "Cloud infra", x: 60, y: 78, color: "#0078d4", size: 36 },
-  { id: "incident", label: "INCIDENT", sublabel: "Crypto-mining attack", x: 35, y: 80, color: "#c0392b", size: 38 },
-  { id: "nginx", label: "Nginx", sublabel: "Reverse proxy", x: 70, y: 90, color: "#f0e6c8", size: 30 },
+  { id: "incident", label: "INCIDENT", sublabel: "Crypto-mining attack", x: 35, y: 80, color: "#e63946", size: 38 },
+  { id: "nginx", label: "Nginx", sublabel: "Reverse proxy", x: 70, y: 90, color: "#0f0f0f", size: 30 },
   { id: "redis", label: "Redis", sublabel: "Cache & queues", x: 10, y: 42, color: "#dc382d", size: 30 },
 ];
 
@@ -37,12 +37,12 @@ const CONNECTIONS: Connection[] = [
   { from: "vivek", to: "agents", label: "integrated" },
   { from: "vivek", to: "sockets", label: "owns" },
   { from: "vivek", to: "bullmq", label: "configured" },
-  { from: "vivek", to: "incident", label: "remediated", color: "#c0392b" },
+  { from: "vivek", to: "incident", label: "remediated", color: "#e63946" },
   { from: "apis", to: "agents", label: "connects" },
   { from: "bullmq", to: "redis", label: "backed by" },
   { from: "azure", to: "nginx", label: "hosts" },
   { from: "vivek", to: "azure", label: "manages" },
-  { from: "incident", to: "azure", label: "was on", color: "#c0392b" },
+  { from: "incident", to: "azure", label: "was on", color: "#e63946" },
 ];
 
 function getNodePos(id: string, containerW: number, containerH: number) {
@@ -76,7 +76,7 @@ export default function CrimeBoard() {
 
   return (
     <section id="about" className="py-24 px-6 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,#1a1a14_0%,#0a0a08_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,#e8f7fc_0%,#fffef6_65%)]" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
         <motion.div
@@ -86,13 +86,13 @@ export default function CrimeBoard() {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <span className="font-mono text-xs text-[#d4a017] tracking-widest uppercase">
+          <span className="font-mono text-xs text-[#ff006e] font-black tracking-widest uppercase">
             Investigation Board
           </span>
-          <h2 className="text-4xl md:text-5xl font-black text-[#f0e6c8] mt-2">
+          <h2 className="text-4xl md:text-5xl font-black text-[var(--foreground)] mt-2">
             The Full Picture
           </h2>
-          <p className="text-[#706858] font-mono text-sm mt-2 max-w-xl">
+          <p className="text-[#5c5c5c] font-mono text-sm mt-2 max-w-xl font-medium">
             Every node is a real system. Every thread is a real connection.
           </p>
         </motion.div>
@@ -103,20 +103,20 @@ export default function CrimeBoard() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative bg-[#0d0d08] border border-[#d4a017]/20 overflow-hidden"
+          className="relative bg-white border-[3px] border-[var(--foreground)] overflow-hidden neo-shadow"
           style={{
             backgroundImage: `
-              radial-gradient(circle at 50% 50%, rgba(212,160,23,0.04) 0%, transparent 70%),
-              repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(212,160,23,0.04) 27px, rgba(212,160,23,0.04) 28px),
-              repeating-linear-gradient(90deg, transparent, transparent 27px, rgba(212,160,23,0.04) 27px, rgba(212,160,23,0.04) 28px)
+              radial-gradient(circle at 50% 50%, rgba(255, 214, 10, 0.12) 0%, transparent 65%),
+              repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(15,15,15,0.06) 27px, rgba(15,15,15,0.06) 28px),
+              repeating-linear-gradient(90deg, transparent, transparent 27px, rgba(15,15,15,0.06) 27px, rgba(15,15,15,0.06) 28px)
             `,
           }}
         >
-          {/* Cork board texture strips */}
-          <div className="absolute top-0 left-0 right-0 h-4 bg-[#3d2b1f] opacity-60" />
-          <div className="absolute bottom-0 left-0 right-0 h-4 bg-[#3d2b1f] opacity-60" />
-          <div className="absolute top-0 bottom-0 left-0 w-4 bg-[#3d2b1f] opacity-60" />
-          <div className="absolute top-0 bottom-0 right-0 w-4 bg-[#3d2b1f] opacity-60" />
+          {/* Frame strips */}
+          <div className="absolute top-0 left-0 right-0 h-3 bg-[var(--gold)] border-b-[3px] border-[var(--foreground)]" />
+          <div className="absolute bottom-0 left-0 right-0 h-3 bg-[var(--neo-cyan)]/40 border-t-[3px] border-[var(--foreground)]" />
+          <div className="absolute top-0 bottom-0 left-0 w-3 bg-[var(--smoke)] border-r-[3px] border-[var(--foreground)]" />
+          <div className="absolute top-0 bottom-0 right-0 w-3 bg-[var(--smoke)] border-l-[3px] border-[var(--foreground)]" />
 
           <div className="relative w-full overflow-x-auto">
             <svg
@@ -132,7 +132,7 @@ export default function CrimeBoard() {
                 const mx = (fp.x + tp.x) / 2;
                 const my = (fp.y + tp.y) / 2 - 20;
                 const d = `M ${fp.x} ${fp.y} Q ${mx} ${my} ${tp.x} ${tp.y}`;
-                const lineColor = color || "#8b7355";
+                const lineColor = color || "#1a1a1a";
                 return (
                   <g key={`${from}-${to}`}>
                     <path
@@ -192,11 +192,11 @@ export default function CrimeBoard() {
                       y={y - node.size / 2}
                       width={node.size * 2}
                       height={node.size}
-                      rx={2}
-                      fill={isCenter ? "#1a1400" : "#110f0a"}
-                      stroke={node.color}
-                      strokeWidth={isCenter ? 2 : 1}
-                      strokeOpacity={isCenter ? 0.9 : 0.5}
+                      rx={0}
+                      fill={isCenter ? "#ffd60a" : "#ffffff"}
+                      stroke={isCenter ? "#0f0f0f" : node.color}
+                      strokeWidth={isCenter ? 3 : 2}
+                      strokeOpacity={1}
                     />
 
                     {/* Incident stamp effect */}
@@ -206,9 +206,9 @@ export default function CrimeBoard() {
                         y={y - node.size / 2}
                         width={node.size * 2}
                         height={node.size}
-                        rx={2}
-                        fill="#c0392b"
-                        fillOpacity={0.08}
+                        rx={0}
+                        fill="#e63946"
+                        fillOpacity={0.15}
                       />
                     )}
 
@@ -217,7 +217,7 @@ export default function CrimeBoard() {
                       x={x}
                       y={y - 4}
                       textAnchor="middle"
-                      fill={node.color}
+                      fill={isCenter ? "#0f0f0f" : node.color}
                       fontSize={isCenter ? 14 : 11}
                       fontWeight="bold"
                       fontFamily="monospace"
@@ -230,7 +230,7 @@ export default function CrimeBoard() {
                         x={x}
                         y={y + 11}
                         textAnchor="middle"
-                        fill="#706858"
+                        fill="#5c5c5c"
                         fontSize={8}
                         fontFamily="monospace"
                       >
@@ -244,12 +244,12 @@ export default function CrimeBoard() {
           </div>
 
           {/* Corner label */}
-          <div className="absolute top-6 right-6 font-mono text-[9px] text-[#d4a017]/40 tracking-widest uppercase">
+          <div className="absolute top-6 right-6 font-mono text-[9px] text-[#5c5c5c] font-bold tracking-widest uppercase">
             Evidence Board — Case #001
           </div>
         </motion.div>
 
-        <p className="text-center font-mono text-xs text-[#706858] mt-4 tracking-wider">
+        <p className="text-center font-mono text-xs text-[#5c5c5c] mt-4 tracking-wider font-medium">
           Red threads indicate security incident. All systems fully restored.
         </p>
       </div>

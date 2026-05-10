@@ -9,6 +9,10 @@ interface CaseFile {
   number: string;
   title: string;
   subtitle: string;
+  /** Employer vs indie; team size; your title — one scannable line */
+  contextLine: string;
+  /** Month/year or duration */
+  period: string;
   classification: string;
   status: "CLOSED" | "ACTIVE" | "CLASSIFIED";
   statusColor: string;
@@ -27,9 +31,12 @@ const CASES: CaseFile[] = [
     number: "CASE-01",
     title: "AI SaaS Backend Buildout",
     subtitle: "50+ REST Endpoints for CPG Automation Platform",
+    contextLine:
+      "Findiy AI · Employed · backend team ~6 · Lead Backend Engineer — owned APIs, queues & real-time layer",
+    period: "Mar 2024 – Present",
     classification: "PRODUCTION DEPLOYMENT",
     status: "ACTIVE",
-    statusColor: "#27ae60",
+    statusColor: "#06d6a0",
     summary:
       "Built the entire backend infrastructure for Findiy AI — a CPG automation SaaS connecting 5 Python AI agents for lead generation and outreach.",
     challenge:
@@ -47,9 +54,12 @@ const CASES: CaseFile[] = [
     number: "CASE-02",
     title: "Production Incident Response",
     subtitle: "Crypto-Mining Compromise Remediation",
+    contextLine:
+      "Findiy AI · Employed · same prod stack · Lead Backend Engineer — led containment, rebuild & validation",
+    period: "Sep 2024 · ~3-week remediation",
     classification: "SECURITY INCIDENT",
     status: "CLOSED",
-    statusColor: "#c0392b",
+    statusColor: "#e63946",
     summary:
       "Identified and fully remediated a crypto-mining compromise on the production VM. Rebuilt and redeployed all services. Zero data loss.",
     challenge:
@@ -67,9 +77,12 @@ const CASES: CaseFile[] = [
     number: "CASE-03",
     title: "Chrome Extension AI Autofill",
     subtitle: "95%+ Accuracy Web Form Data Extraction",
+    contextLine:
+      "Findiy AI · Employed · same product org · Backend Engineer — shipped extension + AI integration end-to-end",
+    period: "Jun 2024 – Present",
     classification: "TOOL DEPLOYMENT",
     status: "ACTIVE",
-    statusColor: "#27ae60",
+    statusColor: "#06d6a0",
     summary:
       "Built a Chrome extension that extracts web form data from CPG platforms, processes it through AI models, and auto-fills target fields with 95%+ accuracy.",
     challenge:
@@ -87,9 +100,11 @@ const CASES: CaseFile[] = [
     number: "CASE-04",
     title: "Readme Generator CLI",
     subtitle: "Open-Source npm Tool — 1,100+ Downloads",
+    contextLine: "Independent · open-source npm · solo author & maintainer",
+    period: "Apr 2023 – Present",
     classification: "OPEN SOURCE",
     status: "ACTIVE",
-    statusColor: "#27ae60",
+    statusColor: "#06d6a0",
     summary:
       "Published an npm CLI tool that generates structured README.md files via an interactive Inquirer.js flow with 1,100+ downloads and growing.",
     challenge:
@@ -110,6 +125,8 @@ const CASES: CaseFile[] = [
     number: "CASE-05",
     title: "Kartify — E-Commerce Backend",
     subtitle: "Full-Featured with Payment Integrity & Load Testing",
+    contextLine: "Independent · portfolio build · solo — design, implementation & load tests",
+    period: "Nov 2023 – Jan 2024 · ~3 months",
     classification: "FULL BUILD",
     status: "CLOSED",
     statusColor: "#706858",
@@ -138,20 +155,20 @@ function CaseCard({ caseFile, index }: { caseFile: CaseFile; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1, duration: 0.5 }}
-      className="border border-[#d4a017]/20 bg-[#0d0d08] case-file-texture relative group hover:border-[#d4a017]/40 transition-all duration-300"
+      className="border-[3px] border-[var(--foreground)] bg-white case-file-texture relative group neo-shadow-sm hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all duration-200"
     >
       {/* Top bar */}
-      <div className="flex items-center justify-between px-5 py-3 border-b border-[#d4a017]/15 bg-[#0f0f08]">
+      <div className="flex items-center justify-between px-5 py-3 border-b-[3px] border-[var(--foreground)] bg-[var(--gold)]">
         <div className="flex items-center gap-3">
-          <FileText className="w-3.5 h-3.5 text-[#d4a017]/60" />
-          <span className="font-mono text-xs text-[#d4a017] tracking-widest font-bold">
+          <FileText className="w-3.5 h-3.5 text-[var(--foreground)]" />
+          <span className="font-mono text-xs text-[var(--foreground)] tracking-widest font-black">
             {caseFile.number}
           </span>
-          <span className="font-mono text-[9px] text-[#706858] tracking-widest uppercase">
+          <span className="font-mono text-[9px] text-[var(--foreground)]/70 tracking-widest uppercase font-bold">
             {caseFile.classification}
           </span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <div
             className="w-1.5 h-1.5 rounded-full"
             style={{ background: caseFile.statusColor }}
@@ -166,26 +183,36 @@ function CaseCard({ caseFile, index }: { caseFile: CaseFile; index: number }) {
       </div>
 
       <div className="p-5">
-        <h3 className="text-lg font-black text-[#f0e6c8] leading-tight mb-1">
+        <h3 className="text-lg font-black text-[var(--foreground)] leading-tight mb-1">
           {caseFile.title}
         </h3>
-        <p className="text-[#706858] font-mono text-xs tracking-wide mb-4">
+        <p className="text-[#5c5c5c] font-mono text-xs tracking-wide mb-3 font-medium">
           {caseFile.subtitle}
         </p>
 
+        <div className="mb-4 border-[2px] border-[var(--foreground)] bg-[var(--smoke)] px-3 py-2.5">
+          <p className="font-mono text-[10px] text-[var(--foreground)] leading-snug font-bold">
+            {caseFile.contextLine}
+          </p>
+          <p className="font-mono text-[10px] text-[#5c5c5c] mt-1.5 font-black uppercase tracking-wider">
+            {caseFile.period}
+          </p>
+        </div>
+
         {/* Highlight bar */}
-        <div className="font-mono text-[10px] text-[#d4a017]/80 tracking-wider mb-4 border-l-2 border-[#d4a017]/40 pl-3">
+        <div className="font-mono text-[10px] text-[var(--foreground)] tracking-wider mb-4 border-l-[4px] border-[var(--neo-pink)] pl-3 font-bold bg-[var(--neo-pink)]/10 py-2">
           {caseFile.highlight}
         </div>
 
-        <p className="text-[#a09880] text-sm leading-relaxed mb-4">
+        <p className="text-[#5c5c5c] text-sm leading-relaxed mb-4">
           {caseFile.summary}
         </p>
 
         {/* Expand button */}
         <button
+          type="button"
           onClick={() => setExpanded((e) => !e)}
-          className="flex items-center gap-2 font-mono text-xs text-[#d4a017]/70 hover:text-[#d4a017] transition-colors tracking-wider uppercase mb-4"
+          className="flex items-center gap-2 font-mono text-xs text-[var(--foreground)] hover:text-[var(--neo-pink)] transition-colors tracking-wider uppercase mb-4 font-black"
         >
           {expanded ? (
             <>
@@ -207,17 +234,17 @@ function CaseCard({ caseFile, index }: { caseFile: CaseFile; index: number }) {
               transition={{ duration: 0.35 }}
               className="overflow-hidden"
             >
-              <div className="space-y-4 border-t border-[#d4a017]/10 pt-4">
+              <div className="space-y-4 border-t-[3px] border-[var(--foreground)] pt-4">
                 {[
                   { label: "Challenge", content: caseFile.challenge },
                   { label: "Approach", content: caseFile.approach },
                   { label: "Outcome", content: caseFile.outcome },
                 ].map(({ label, content }) => (
                   <div key={label}>
-                    <div className="font-mono text-[9px] text-[#d4a017]/60 tracking-widest uppercase mb-1">
+                    <div className="font-mono text-[9px] text-[#5c5c5c] tracking-widest uppercase mb-1 font-black">
                       {label}
                     </div>
-                    <p className="text-[#a09880] text-sm leading-relaxed">{content}</p>
+                    <p className="text-[#5c5c5c] text-sm leading-relaxed">{content}</p>
                   </div>
                 ))}
               </div>
@@ -230,7 +257,7 @@ function CaseCard({ caseFile, index }: { caseFile: CaseFile; index: number }) {
           {caseFile.tech.map((t) => (
             <span
               key={t}
-              className="px-2 py-0.5 border border-[#32322a] font-mono text-[9px] text-[#706858] tracking-wider uppercase"
+              className="px-2 py-0.5 border-[2px] border-[var(--foreground)] bg-[var(--smoke)] font-mono text-[9px] text-[var(--foreground)] tracking-wider uppercase font-bold"
             >
               {t}
             </span>
@@ -246,7 +273,7 @@ function CaseCard({ caseFile, index }: { caseFile: CaseFile; index: number }) {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 font-mono text-xs text-[#d4a017]/70 hover:text-[#d4a017] transition-colors tracking-wider"
+                className="flex items-center gap-1.5 font-mono text-xs text-[var(--neo-cyan)] font-bold hover:underline transition-colors tracking-wider"
               >
                 {link.icon === "github" ? (
                   <GitFork className="w-3 h-3" />
@@ -266,7 +293,7 @@ function CaseCard({ caseFile, index }: { caseFile: CaseFile; index: number }) {
 export default function CaseFiles() {
   return (
     <section id="case-files" className="py-24 px-6 relative">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,#1a1400_0%,#0a0a08_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,#ffe5f0_0%,#fffef6_55%)]" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
         <motion.div
@@ -275,14 +302,14 @@ export default function CaseFiles() {
           viewport={{ once: true }}
           className="mb-12"
         >
-          <span className="font-mono text-xs text-[#d4a017] tracking-widest uppercase">
+          <span className="font-mono text-xs text-[var(--neo-cyan)] font-black tracking-widest uppercase">
             Docket — All Cases
           </span>
-          <h2 className="text-4xl md:text-5xl font-black text-[#f0e6c8] mt-2">
+          <h2 className="text-4xl md:text-5xl font-black text-[var(--foreground)] mt-2">
             Case Files
           </h2>
-          <p className="text-[#706858] font-mono text-sm mt-2">
-            Every case is a real production build. Click to open the file.
+          <p className="text-[#5c5c5c] font-mono text-sm mt-2 font-medium">
+            Each card lists context (employer vs independent, team, role) and dates. Open a file for full narrative.
           </p>
         </motion.div>
 

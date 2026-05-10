@@ -1,18 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a08;
-  --foreground: #f0e6c8;
-  --gold: #d4a017;
-  --gold-dim: #a07810;
-  --gold-bright: #f5c842;
-  --smoke: #1a1a14;
-  --smoke-mid: #252520;
-  --smoke-light: #32322a;
-  --red-evidence: #c0392b;
-  --green-evidence: #27ae60;
-  --wire: #8b7355;
-  --wire-bright: #c4a35a;
+  --background: #fffef6;
+  --foreground: #0f0f0f;
+  --gold: #ffd60a;
+  --gold-dim: #e6c200;
+  --gold-bright: #ffea8a;
+  --smoke: #f0f0eb;
+  --smoke-mid: #e6e6e0;
+  --smoke-light: #dcdcd6;
+  --red-evidence: #e63946;
+  --green-evidence: #06d6a0;
+  --wire: #1a1a1a;
+  --wire-bright: #000000;
+  --neo-pink: #ff006e;
+  --neo-cyan: #00bbf9;
 }
 
 @theme inline {
@@ -28,6 +30,8 @@
   --color-green-evidence: var(--green-evidence);
   --color-wire: var(--wire);
   --color-wire-bright: var(--wire-bright);
+  --color-neo-pink: var(--neo-pink);
+  --color-neo-cyan: var(--neo-cyan);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -47,36 +51,51 @@ body {
   overflow-x: hidden;
 }
 
+/* Neobrutalist hard shadow */
+.neo-shadow {
+  box-shadow: 5px 5px 0 0 var(--foreground);
+}
+.neo-shadow-sm {
+  box-shadow: 3px 3px 0 0 var(--foreground);
+}
+.neo-shadow-accent {
+  box-shadow: 5px 5px 0 0 var(--gold);
+}
+.neo-border {
+  border: 3px solid var(--foreground);
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
   background: var(--smoke);
+  border-left: 2px solid var(--foreground);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--gold-dim);
-  border-radius: 3px;
+  background: var(--gold);
+  border: 2px solid var(--foreground);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--gold);
+  background: var(--gold-bright);
 }
 
-/* Film grain overlay */
+/* Light grain — subtle paper texture */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.4;
+  opacity: 0.35;
 }
 
 /* Text selection */
 ::selection {
-  background: var(--gold-dim);
-  color: var(--background);
+  background: var(--gold);
+  color: var(--foreground);
 }
 
 /* Glitch animation */
@@ -91,15 +110,15 @@ body::before {
 @keyframes flicker {
   0%, 100% { opacity: 1; }
   92% { opacity: 1; }
-  93% { opacity: 0.4; }
+  93% { opacity: 0.85; }
   94% { opacity: 1; }
-  96% { opacity: 0.6; }
+  96% { opacity: 0.92; }
   97% { opacity: 1; }
 }
 
 @keyframes pulse-gold {
-  0%, 100% { box-shadow: 0 0 8px 1px rgba(212, 160, 23, 0.3); }
-  50% { box-shadow: 0 0 20px 4px rgba(212, 160, 23, 0.6); }
+  0%, 100% { box-shadow: 4px 4px 0 0 var(--foreground), 0 0 0 0 rgba(255, 214, 10, 0.5); }
+  50% { box-shadow: 4px 4px 0 0 var(--foreground), 4px 4px 0 2px var(--gold); }
 }
 
 @keyframes typewriter {
@@ -108,7 +127,7 @@ body::before {
 }
 
 @keyframes blink-cursor {
-  0%, 100% { border-color: var(--gold); }
+  0%, 100% { border-color: var(--foreground); }
   50% { border-color: transparent; }
 }
 
@@ -139,7 +158,7 @@ body::before {
   animation: float 4s ease-in-out infinite;
 }
 
-/* Stamp effect */
+/* Stamp effect — neobrutalist */
 .stamp {
   border: 3px solid var(--red-evidence);
   color: var(--red-evidence);
@@ -148,29 +167,32 @@ body::before {
   letter-spacing: 0.15em;
   transform: rotate(-8deg);
   display: inline-block;
-  opacity: 0.85;
+  opacity: 1;
   text-transform: uppercase;
   font-size: 0.7rem;
   font-family: var(--font-geist-mono);
+  background: var(--background);
+  box-shadow: 3px 3px 0 0 var(--foreground);
 }
 
-/* Case file card texture */
+/* Case file card — ruled paper on light */
 .case-file-texture {
   background-image:
     repeating-linear-gradient(
       0deg,
       transparent,
       transparent 27px,
-      rgba(212, 160, 23, 0.06) 27px,
-      rgba(212, 160, 23, 0.06) 28px
+      rgba(15, 15, 15, 0.06) 27px,
+      rgba(15, 15, 15, 0.06) 28px
     );
 }
 
-/* Neon gold text */
+/* Brutalist headline accent — yellow + black offset */
 .text-neon-gold {
-  color: var(--gold-bright);
+  color: var(--gold);
   text-shadow:
-    0 0 10px rgba(245, 200, 66, 0.8),
-    0 0 30px rgba(245, 200, 66, 0.4),
-    0 0 60px rgba(245, 200, 66, 0.2);
+    3px 3px 0 var(--foreground),
+    -1px -1px 0 var(--foreground),
+    1px -1px 0 var(--foreground),
+    -1px 1px 0 var(--foreground);
 }
