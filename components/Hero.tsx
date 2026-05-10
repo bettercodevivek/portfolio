@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Phone, ArrowDown, Shield, Zap, Server } from "lucide-react";
+import { Phone, ArrowDown } from "lucide-react";
+import BetterCallPortrait from "@/components/BetterCallPortrait";
 
 const STATS = [
   { value: "50+", label: "REST Endpoints Shipped" },
@@ -99,7 +100,8 @@ export default function Hero() {
       </noscript>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
-        <div className="max-w-4xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-16 items-start">
+          <div className="max-w-4xl">
           {/* At a glance — always in DOM; readable in print & without waiting on motion */}
           <div className="mb-8 max-w-3xl border-[3px] border-[var(--foreground)] bg-white px-4 py-3 neo-shadow-sm text-left print:shadow-none print:border-black">
             <p className="font-mono text-[10px] uppercase tracking-widest text-[#5c5c5c] font-black mb-2">
@@ -204,46 +206,11 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.1 }}
-          className="hidden lg:block absolute right-10 top-1/2 -translate-y-1/2"
-        >
-          <div className="relative w-64 h-64">
-            {[
-              { Icon: Server, delay: 0, x: 0, y: 0, label: "Node.js" },
-              { Icon: Zap, delay: 0.3, x: 80, y: -60, label: "BullMQ" },
-              { Icon: Shield, delay: 0.6, x: -10, y: 100, label: "Secure" },
-            ].map(({ Icon, delay, x, y, label }) => (
-              <motion.div
-                key={label}
-                animate={{ y: [0, -8, 0] }}
-                transition={{
-                  duration: 4,
-                  delay,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="absolute flex flex-col items-center gap-1"
-                style={{ left: x, top: y }}
-              >
-                <div className="w-12 h-12 border-[3px] border-[var(--foreground)] bg-[var(--neo-cyan)]/30 flex items-center justify-center neo-shadow-sm">
-                  <Icon className="w-5 h-5 text-[var(--foreground)]" />
-                </div>
-                <span className="font-mono text-[9px] text-[#5c5c5c] tracking-wider uppercase font-bold">
-                  {label}
-                </span>
-              </motion.div>
-            ))}
-
-            <svg className="absolute inset-0 w-full h-full" style={{ overflow: "visible" }}>
-              <line x1="56" y1="56" x2="136" y2="0" stroke="var(--foreground)" strokeWidth="2" strokeOpacity="0.35" strokeDasharray="6 6" />
-              <line x1="56" y1="56" x2="46" y2="156" stroke="var(--foreground)" strokeWidth="2" strokeOpacity="0.35" strokeDasharray="6 6" />
-              <line x1="136" y1="0" x2="46" y2="156" stroke="var(--foreground)" strokeWidth="2" strokeOpacity="0.35" strokeDasharray="6 6" />
-            </svg>
+          {/* Better Call Saul–style billboard portrait */}
+          <div className="flex justify-center lg:justify-end lg:sticky lg:top-28">
+            <BetterCallPortrait />
           </div>
-        </motion.div>
+        </div>
       </div>
 
       <motion.div

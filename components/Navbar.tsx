@@ -7,7 +7,7 @@ import { Menu, X, Phone } from "lucide-react";
 const navLinks = [
   { label: "Case Files", href: "#case-files" },
   { label: "Evidence", href: "#skills" },
-  { label: "Track Record", href: "#about" },
+  { label: "Status", href: "#status" },
   { label: "Consultation", href: "#contact" },
 ];
 
